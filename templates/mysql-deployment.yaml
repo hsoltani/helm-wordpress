@@ -2,25 +2,25 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordpress-mysql
+  name: {{ .Values.enviroment }}-mysql
   labels:
-    app: wordpress
+    app: {{ .Values.enviroment }}
 spec:
   ports:
     - port: 3306
   selector:
-    app: wordpress
-    tier: mysql
+    app: {{ .Values.enviroment }}
+    tier: {{ .Values.enviroment }}-mysql
   clusterIP: None
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: {{ .Values.enviroment }}-mysql-pv-claim
   labels:
-    app: wordpress
+    app: {{ .Values.enviroment }}
 spec:
-  storageClassName: mysql-local
+  storageClassName: {{ .Values.enviroment }}-mysql-local
   accessModes:
     - ReadWriteOnce
   resources:
@@ -30,30 +30,30 @@ spec:
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: wordpress-mysql
+  name: {{ .Values.enviroment }}-mysql
   labels:
-    app: wordpress
+    app: {{ .Values.enviroment }}
 spec:
   selector:
     matchLabels:
-      app: wordpress
-      tier: mysql
+      app: {{ .Values.enviroment }}
+      tier: {{ .Values.enviroment }}-mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: wordpress
-        tier: mysql
+        app: {{ .Values.enviroment }}
+        tier: {{ .Values.enviroment }}-mysql
     spec:
       containers:
-      - image: mariadb:5.5.47
+      - image: {{ .Values.mysql.image }}
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-pass
+              name: {{ .Values.enviroment }}-mysql-pass
               key: password
         ports:
         - containerPort: 3306
@@ -64,5 +64,5 @@ spec:
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: {{ .Values.enviroment }}-mysql-pv-claim
 

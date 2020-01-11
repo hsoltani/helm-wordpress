@@ -2,36 +2,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordpress
+  name: {{ .Values.enviroment }}-wordpress
   labels:
-    app: wordpress
+    app: {{ .Values.enviroment }}
   annotations:
     getambassador.io/config: |
+    {{ range .Values.wordpress.mappings }}
       ---
       apiVersion: ambassador/v1
       kind: Mapping
-      name: wp-mapping
+      name: {{ .name }}
       prefix: /
-      service: wordpress:80
-      host: lesetraum.blog
-      timeout_ms: 10000
-      idle_timeout_ms: 500000
-      connect_timeout_ms: 4000
-      ---
-      apiVersion: ambassador/v1
-      kind: Mapping
-      name: wp-www-mapping
-      prefix: /
-      service: lesetraum.blog
-      host: www.lesetraum.blog
-      timeout_ms: 10000
-      idle_timeout_ms: 500000
-      connect_timeout_ms: 4000
-      host_redirect: true
+      service: {{ .service }}
+      host: {{ .host }}
+      timeout_ms: {{ .timeout_ms }}
+      idle_timeout_ms: {{ .idle_timeout_ms }}
+      connect_timeout_ms: {{ .connect_timeout_ms }}
+      host_redirect: {{ .host_redirect }}
+    {{ end }}
 spec:
   ports:
     - port: 80
   selector:
-    app: wordpress
-    tier: frontend
+    app: {{ .Values.enviroment }}
+    tier: {{ .Values.enviroment }}-frontend
   type: ClusterIP
