@@ -2,10 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Ambassador fehlt noch, daher kein separater Namespace möglich sodass Differenzierung der Services auf Namensebene stattfinden muss.
-# Alle Wordings mit merlin (Bindestrich oder Punkt nicht vergessen) ändern bei neuem Wert für Key enviroment.
+# Alle Wordings mit "merlin" (Bindestrich oder Punkt nicht vergessen) ändern bei neuem Wert für Key "enviroment"!
 
-enviroment: merlin # rizbo
+enviroment: merlin
 wordpress:
   image: wordpress:5.3.2-php7.4-apache
   mappings:
@@ -17,13 +16,14 @@ wordpress:
     connect_timeout_ms: 4000
     host_redirect: false
 
-  - name: merlin-wp-www-mapping
-    service: merlin.lesetraum.blog
-    host: www.merlin.lesetraum.blog
-    timeout_ms: 10000
-    idle_timeout_ms: 500000
-    connect_timeout_ms: 4000
-    host_redirect: true
+  # Nur bei Deployment von Prod aktivieren!
+  # - name: merlin-wp-www-mapping
+  #   service: merlin.lesetraum.blog
+  #   host: www.merlin.lesetraum.blog
+  #   timeout_ms: 10000
+  #   idle_timeout_ms: 500000
+  #   connect_timeout_ms: 4000
+  #   host_redirect: true
 mysql:
-  image: mariadb:5.5.47
+  image: mariadb:10.4.11-bionic
 

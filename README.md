@@ -2,12 +2,27 @@
 
 Repository mit Helm Chart für lesetraum.blog :smirk:
 
+# Prerequists
+
+Folgende CustomResourceDefinitions sind zwingend notwendig und müssen vorab manuell installiert werden:
+
+- templates/customResourceDefinitions.yaml
+
+```sh
+$ kubectl apply -f ./templates/customResourceDefinitions.yaml
+```
+
 # Lokale Bash-History für Stable Wordpress Helm Chart als Vorlage
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-helm search repo wordpress
-helm repo update
-helm help
-mkdir stable
-cd stable
-helm pull stable/wordpress
-helm install -h
+
+```sh
+$ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+$ helm search repo wordpress
+$ helm repo update
+$ helm help
+$ mkdir stable
+$ cd stable
+$ helm pull stable/wordpress
+$ helm install -h
+$ helm create test
+$ helm install . --dry-run --debug --generate-name --skip-crds
+```

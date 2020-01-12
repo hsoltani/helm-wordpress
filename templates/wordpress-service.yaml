@@ -7,7 +7,7 @@ metadata:
     app: {{ .Values.enviroment }}
   annotations:
     getambassador.io/config: |
-    {{ range .Values.wordpress.mappings }}
+    {{- range .Values.wordpress.mappings }}
       ---
       apiVersion: ambassador/v1
       kind: Mapping
@@ -19,7 +19,7 @@ metadata:
       idle_timeout_ms: {{ .idle_timeout_ms }}
       connect_timeout_ms: {{ .connect_timeout_ms }}
       host_redirect: {{ .host_redirect }}
-    {{ end }}
+    {{- end }}
 spec:
   ports:
     - port: 80

@@ -4,14 +4,14 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.enviroment }}-wordpress-pv-claim
   labels:
-    app: {{ .Values.enviroment }}-wordpress
+    app: {{ .Values.enviroment }}
 spec:
   storageClassName: {{ .Values.enviroment }}-wordpress-local
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 100Gi
 ---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
