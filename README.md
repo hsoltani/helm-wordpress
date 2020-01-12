@@ -1,6 +1,6 @@
 # helm-wordpress :circus_tent:
 
-Repository mit Helm Chart für lesetraum.blog :smirk:
+Repository mit Helm Chart für Wordpress mit MySQL :smirk:
 
 # Prerequists
 
