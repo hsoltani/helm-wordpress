@@ -25,4 +25,8 @@ $ helm pull stable/wordpress
 $ helm install -h
 $ helm create test
 $ helm install . --dry-run --debug --generate-name --skip-crds
+$ helm install wordpress-merlin . --skip-crds --namespace merlin
+$ helm upgrade --install wordpress-merlin . --namespace merlin
+$ helm ls -n merlin
+$ helm delete wordpress-merlin -n merlin
 ```
