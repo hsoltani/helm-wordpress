@@ -50,7 +50,7 @@ spec:
         - name: WORDPRESS_DEBUG
           value: '0'
         - name: WORDPRESS_DB_HOST
-          value: {{ .Values.enviroment }}-mysql
+          value: {{ .Values.enviroment }}-mysql.{{ .Values.enviroment }}.svc.cluster.local:3306
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
