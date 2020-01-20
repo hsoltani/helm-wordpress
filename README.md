@@ -12,6 +12,8 @@ Folgende CustomResourceDefinitions sind zwingend notwendig und müssen vorab man
 $ kubectl apply -f ./templates/customResourceDefinitions.yaml
 ```
 
+- namespace muss aktuell noch manuell angelegt werden bis diese Issue gelöst ist: https://github.com/helm/helm/issues/6794
+
 # Lokale Bash-History für Stable Wordpress Helm Chart als Vorlage
 
 ```sh

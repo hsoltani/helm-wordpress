@@ -51,11 +51,15 @@ spec:
           value: '0'
         - name: WORDPRESS_DB_HOST
           value: {{ .Values.enviroment }}-mysql.{{ .Values.enviroment }}.svc.cluster.local:3306
+        - name: WORDPRESS_DB_NAME
+          value: 'tausendbuecher'
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Values.enviroment }}-mysql-pass
               key: password
+        - name: WORDPRESS_TABLE_PREFIX
+          value: 'new_'
         ports:
         - containerPort: 80
           name: wordpress
